@@ -1,0 +1,49 @@
+[project]
+name = "flight-etl-pipeline"
+version = "0.1.0"
+description = "Academic MySQL and Pandas ETL pipeline for flight analytics."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.1,<3.0",
+    "PyMySQL>=1.1,<2.0",
+    "python-dotenv>=1.0,<2.0",
+    "SQLAlchemy>=2.0,<3.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0,<9.0",
+    "ruff>=0.14,<1.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pyrefly]
+preset = "off"
+disable-type-errors-in-ide = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["B", "C4", "D", "E", "F", "G", "I", "N", "PD", "RUF", "S", "SIM", "UP"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "integration: requires the Docker MySQL environment",
+]
